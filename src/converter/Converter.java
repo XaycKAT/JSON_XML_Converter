@@ -9,7 +9,7 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 
-class Converter {
+public class Converter {
     private String content;
 
     private void parseXML() {
@@ -22,7 +22,7 @@ class Converter {
         director.startConversion();
     }
 
-    void start(String file) {
+    public void start(String file) {
         try {
             Path path = Paths.get(file);
             content = Files

@@ -7,13 +7,13 @@ import java.util.Map;
 import java.util.Scanner;
 
 
-import static converter.Main.*;
-import static converter.Main.getSubXml;
+
+import static converter.components.Functions.*;
 import static converter.components.RegexPattern.*;
 import static converter.components.RegexPattern.XML_ATTRIBUTES;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-public class MainTest {
+public class FunctionsTest {
 
 //    @Test
 //    public void checkXmlLineTest() {
@@ -107,47 +107,47 @@ public class MainTest {
         assertEquals(findNameValue(JSON_NAME, " {\n \"success\": "), "success");
 
     }
-    
-    @Test
-    public void parseToLineTest() {
-        String text = "<transaction>\n"
-                + "\t<id>6753322</id>\n"
-                + "\t<number region=\"Russia\">8-900-000-00-00</number>\n"
-                + "\t<nonattr />\n"
-                + "\t<nonattr/>\n"
-                + "\t<nonattr>text</nonattr>\n"
-                + "\t<attr id=\"1\" />\n"
-                + "\t<attr id=\"2\"/>\n"
-                + "\t<attr id=\"3\">text</attr>\n"
-                + "\t<email>\n"
-                + "\t\t<to>to_example@gmail.com</to>\n"
-                + "\t\t<from>from_example@gmail.com</from>\n"
-                + "\t\t<subject>Project discussion</subject>\n"
-                + "\t\t<body font=\"Verdana\">Body message</body>\n"
-                + "\t\t<date day=\"12\" month=\"12\" year=\"2018\"/>\n"
-                + "\t</email>\n"
-                + "</transaction>\n";
-        assertEquals(
-                "<transaction><id>6753322</id><number region=\"Russia\">8-900-000-00-00</number><nonattr/><nonattr/><nonattr>text</nonattr>"
-                        + "<attr id=\"1\"/><attr id=\"2\"/><attr id=\"3\">text</attr><email><to>to_example@gmail.com</to><from>from_example@gmail.com</from><subject>Project discussion</subject>"
-                        + "<body font=\"Verdana\">Body message</body><date day=\"12\" month=\"12\" year=\"2018\"/></email></transaction>",
-                parseToLine(new Scanner(text)));
 
-        text = "{\n"
-                + "    \"person\": {\n"
-                + "        \"@rate\": 1,\n"
-                + "        \"@name\": \"Torvalds\",\n"
-                + "        \"#person\": null\n"
-                + "    }\n"
-                + "}";
-        assertEquals("{\"person\":{\"@rate\":1,\"@name\":\"Torvalds\",\"#person\":null}}",
-                parseToLine(new Scanner(text)));
-
-        text =
-                "<node><child name=\"child_name1\" type=\"child_type1\"><subchild id=\"1\" auth=\"auth1\">Value1</subchild></child><child name=\"child_name2\" type=\"child_type2\">"
-                        + "<subchild id=\"2\" auth=\"auth1\">Value2</subchild><subchild id=\"3\" auth=\"auth2\">Value3</subchild><subchild id=\"4\" auth=\"auth3\"></subchild><subchild id=\"5\" auth=\"auth3\"/></child></node>";
-        assertEquals(text, parseToLine(new Scanner(text)));
-    }
+//    @Test
+//    public void parseToLineTest() {
+//        String text = "<transaction>\n"
+//                + "\t<id>6753322</id>\n"
+//                + "\t<number region=\"Russia\">8-900-000-00-00</number>\n"
+//                + "\t<nonattr />\n"
+//                + "\t<nonattr/>\n"
+//                + "\t<nonattr>text</nonattr>\n"
+//                + "\t<attr id=\"1\" />\n"
+//                + "\t<attr id=\"2\"/>\n"
+//                + "\t<attr id=\"3\">text</attr>\n"
+//                + "\t<email>\n"
+//                + "\t\t<to>to_example@gmail.com</to>\n"
+//                + "\t\t<from>from_example@gmail.com</from>\n"
+//                + "\t\t<subject>Project discussion</subject>\n"
+//                + "\t\t<body font=\"Verdana\">Body message</body>\n"
+//                + "\t\t<date day=\"12\" month=\"12\" year=\"2018\"/>\n"
+//                + "\t</email>\n"
+//                + "</transaction>\n";
+//        assertEquals(
+//                "<transaction><id>6753322</id><number region=\"Russia\">8-900-000-00-00</number><nonattr/><nonattr/><nonattr>text</nonattr>"
+//                        + "<attr id=\"1\"/><attr id=\"2\"/><attr id=\"3\">text</attr><email><to>to_example@gmail.com</to><from>from_example@gmail.com</from><subject>Project discussion</subject>"
+//                        + "<body font=\"Verdana\">Body message</body><date day=\"12\" month=\"12\" year=\"2018\"/></email></transaction>",
+//                parseToLine(text));
+//
+//        text = "{\n"
+//                + "    \"person\": {\n"
+//                + "        \"@rate\": 1,\n"
+//                + "        \"@name\": \"Torvalds\",\n"
+//                + "        \"#person\": null\n"
+//                + "    }\n"
+//                + "}";
+//        assertEquals("{\"person\":{\"@rate\":1,\"@name\":\"Torvalds\",\"#person\":null}}",
+//                parseToLine(text));
+//
+//        text =
+//                "<node><child name=\"child_name1\" type=\"child_type1\"><subchild id=\"1\" auth=\"auth1\">Value1</subchild></child><child name=\"child_name2\" type=\"child_type2\">"
+//                        + "<subchild id=\"2\" auth=\"auth1\">Value2</subchild><subchild id=\"3\" auth=\"auth2\">Value3</subchild><subchild id=\"4\" auth=\"auth3\"></subchild><subchild id=\"5\" auth=\"auth3\"/></child></node>";
+//        assertEquals(text, parseToLine(text));
+//    }
 
     @Test
     public void findAllAttributesTest() {
@@ -164,6 +164,7 @@ public class MainTest {
         expectMap = new LinkedHashMap<>();
         assertEquals(actualMap, expectMap);
     }
+
     @Test
     public void getSubXmlTest() {
         String text = "<child name = \"child_name1\" type = \"child_type1\"><subchild id = \"1\" auth=\"auth1\">Value1</subchild></child>";
@@ -172,8 +173,8 @@ public class MainTest {
                 + "<child name=\"child_name2\" type=\"child_type2\"><subchild id=\"2\" auth=\"auth1\">Value2</subchild><subchild id=\"3\" auth=\"auth2\">Value3"
                 + "</subchild><subchild id=\"4\" auth=\"auth3\"></subchild><subchild id=\"5\" auth=\"auth3\"/></child></node>\n";
         assertEquals("<child name=\"child_name1\" type=\"child_type1\"><subchild id=\"1\" auth=\"auth1\">Value1</subchild></child>"
-                +"<child name=\"child_name2\" type=\"child_type2\"><subchild id=\"2\" auth=\"auth1\">Value2</subchild><subchild id=\"3\" auth=\"auth2\">Value3"
-                +"</subchild><subchild id=\"4\" auth=\"auth3\"></subchild><subchild id=\"5\" auth=\"auth3\"/></child>", getSubXml(text));
+                + "<child name=\"child_name2\" type=\"child_type2\"><subchild id=\"2\" auth=\"auth1\">Value2</subchild><subchild id=\"3\" auth=\"auth2\">Value3"
+                + "</subchild><subchild id=\"4\" auth=\"auth3\"></subchild><subchild id=\"5\" auth=\"auth3\"/></child>", getSubXml(text));
     }
 
 //    @Test

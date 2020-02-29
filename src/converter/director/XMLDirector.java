@@ -22,7 +22,6 @@ public class XMLDirector implements Director {
             xmlBuilder.parse();
             xmlBuilder.print();
         }
-
     }
 
 }

@@ -14,8 +14,13 @@ public class JSONDirector implements Director {
 
     @Override
     public void startConversion() {
-        JSONBuilder jsonBuilder = new JSONBuilder();
-
+        JSONBuilder jsonBuilder = new JSONBuilder(content);
+        jsonBuilder.read();
+        if (isRaw)
+            jsonBuilder.printRaw();
+        else {
+            jsonBuilder.parse();
+            jsonBuilder.print();
+        }
     }
-
 }
