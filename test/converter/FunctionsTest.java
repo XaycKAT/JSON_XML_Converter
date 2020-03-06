@@ -108,47 +108,6 @@ public class FunctionsTest {
 
     }
 
-//    @Test
-//    public void parseToLineTest() {
-//        String text = "<transaction>\n"
-//                + "\t<id>6753322</id>\n"
-//                + "\t<number region=\"Russia\">8-900-000-00-00</number>\n"
-//                + "\t<nonattr />\n"
-//                + "\t<nonattr/>\n"
-//                + "\t<nonattr>text</nonattr>\n"
-//                + "\t<attr id=\"1\" />\n"
-//                + "\t<attr id=\"2\"/>\n"
-//                + "\t<attr id=\"3\">text</attr>\n"
-//                + "\t<email>\n"
-//                + "\t\t<to>to_example@gmail.com</to>\n"
-//                + "\t\t<from>from_example@gmail.com</from>\n"
-//                + "\t\t<subject>Project discussion</subject>\n"
-//                + "\t\t<body font=\"Verdana\">Body message</body>\n"
-//                + "\t\t<date day=\"12\" month=\"12\" year=\"2018\"/>\n"
-//                + "\t</email>\n"
-//                + "</transaction>\n";
-//        assertEquals(
-//                "<transaction><id>6753322</id><number region=\"Russia\">8-900-000-00-00</number><nonattr/><nonattr/><nonattr>text</nonattr>"
-//                        + "<attr id=\"1\"/><attr id=\"2\"/><attr id=\"3\">text</attr><email><to>to_example@gmail.com</to><from>from_example@gmail.com</from><subject>Project discussion</subject>"
-//                        + "<body font=\"Verdana\">Body message</body><date day=\"12\" month=\"12\" year=\"2018\"/></email></transaction>",
-//                parseToLine(text));
-//
-//        text = "{\n"
-//                + "    \"person\": {\n"
-//                + "        \"@rate\": 1,\n"
-//                + "        \"@name\": \"Torvalds\",\n"
-//                + "        \"#person\": null\n"
-//                + "    }\n"
-//                + "}";
-//        assertEquals("{\"person\":{\"@rate\":1,\"@name\":\"Torvalds\",\"#person\":null}}",
-//                parseToLine(text));
-//
-//        text =
-//                "<node><child name=\"child_name1\" type=\"child_type1\"><subchild id=\"1\" auth=\"auth1\">Value1</subchild></child><child name=\"child_name2\" type=\"child_type2\">"
-//                        + "<subchild id=\"2\" auth=\"auth1\">Value2</subchild><subchild id=\"3\" auth=\"auth2\">Value3</subchild><subchild id=\"4\" auth=\"auth3\"></subchild><subchild id=\"5\" auth=\"auth3\"/></child></node>";
-//        assertEquals(text, parseToLine(text));
-//    }
-
     @Test
     public void findAllAttributesTest() {
         String text = "    <child name = \"child_name1\" type = \"child_type1\" id=\"2\" />";
@@ -176,29 +135,5 @@ public class FunctionsTest {
                 + "<child name=\"child_name2\" type=\"child_type2\"><subchild id=\"2\" auth=\"auth1\">Value2</subchild><subchild id=\"3\" auth=\"auth2\">Value3"
                 + "</subchild><subchild id=\"4\" auth=\"auth3\"></subchild><subchild id=\"5\" auth=\"auth3\"/></child>", getSubXml(text));
     }
-
-//    @Test
-//    public void findNestedNodesTest() {
-//        String text = "<transaction>\n"
-//            + "    <id>6753322</id>\n"
-//            + "    <number region=\"Russia\">8-900-000-00-00</number>\n"
-//            + "    <nonattr />\n"
-//            + "    <nonattr></nonattr>\n"
-//            + "    <nonattr>text</nonattr>\n"
-//            + "    <attr id=\"1\" />\n"
-//            + "    <attr id=\"2\"></attr>\n"
-//            + "    <attr id=\"3\">text</attr>\n"
-//            + "    <email>\n"
-//            + "        <to>to_example@gmail.com</to>\n"
-//            + "        <from>from_example@gmail.com</from>\n"
-//            + "        <subject>Project discussion</subject>\n"
-//            + "        <body font=\"Verdana\">Body message</body>\n"
-//            + "        <date day=\"12\" month=\"12\" year=\"2018\"/>\n"
-//            + "    </email>\n"
-//            + "</transaction>";
-//        converter.Converter converter = new Converter();
-//        converter.readElements(text);
-//        assertEquals(15, converter.getElementList().size());
-//    }
 
 }

@@ -12,13 +12,13 @@ import java.nio.file.Paths;
 public class Converter {
     private String content;
 
-    private void parseXML() {
-        JSONDirector director = new JSONDirector(content, true);
+    private void parseXML(Boolean isRaw) {
+        JSONDirector director = new JSONDirector(content, isRaw);
         director.startConversion();
     }
 
-    private void parseJSON() {
-        XMLDirector director = new XMLDirector(content, true);
+    private void parseJSON(Boolean isRaw) {
+        XMLDirector director = new XMLDirector(content, isRaw);
         director.startConversion();
     }
 
@@ -30,9 +30,9 @@ public class Converter {
                     .trim();
             long c = System.currentTimeMillis();
             if (content.startsWith("<")) {
-                parseXML();
+                parseXML(true);
             } else {
-                parseJSON();
+                parseJSON(true);
             }
             long d = System.currentTimeMillis() - c;
         } catch (IOException e) {

@@ -52,8 +52,6 @@ public class Functions {
     }
 
 
-
-
     public static String parseToLine(String string) {
         return string.replaceAll("\\s+|\t|\n|\r"," ")
                 .replaceAll("> <", "><")

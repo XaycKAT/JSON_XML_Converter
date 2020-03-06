@@ -31,14 +31,11 @@ public class JSONBuilder implements Builder {
     public void read() {
         findNestedNodes(rawContent);
     }
+
+
+
     private void findNestedNodes(String parseLine) {
-        BiConsumer<String, String> addElement = (value, line) -> {
-            String node = findNameValue(XML_NAME, line);
-            path.addLast(node);
-            elementList
-                    .add(new Element(findAllAttributes(XML_ATTRIBUTES, line), value, path));
-            path.removeLast();
-        };
+
         switch (checkXmlLine(parseLine)) {
             case 1: {
                 addElement.accept(findNameValue(XML_VALUE, parseLine), parseLine);
@@ -47,7 +44,6 @@ public class JSONBuilder implements Builder {
             case 2: {
                 addElement.accept("", parseLine);
                 break;
-
             }
             case 3: {
                 addElement.accept("null", parseLine);
@@ -58,7 +54,16 @@ public class JSONBuilder implements Builder {
             }
         }
     }
-    public Consumer<String> finder = (parseLine) -> {
+
+    BiConsumer<String, String> addElement = (value, line) -> {
+        String node = findNameValue(XML_NAME, line);
+        path.addLast(node);
+        elementList
+            .add(new Element(findAllAttributes(XML_ATTRIBUTES, line), value, path));
+        path.removeLast();
+    };
+
+    Consumer<String> finder = (parseLine) -> {
         while (parseLine.length() > 0) {
             String tag = findNameValue(XML_NAME, parseLine);
             Matcher matcher = Pattern.compile(xmlNullValueRegexWrapper(tag) + "|" + xmlDefaultRegexWrapper(tag))
@@ -79,20 +84,19 @@ public class JSONBuilder implements Builder {
             }
         }
     };
-    @Override
-    public void printRaw() {
-        elementList.stream().map(x -> x.toString()).forEach(System.out::println);
-    }
-
-
-    @Override
-    public void print() {
-        System.out.println(jsonContent);
-    }
 
     @Override
     public void parse() {
 
     }
 
+    @Override
+    public void printRaw() {
+        elementList.stream().map(x -> x.toString()).forEach(System.out::println);
+    }
+
+    @Override
+    public void print() {
+        System.out.println(jsonContent);
+    }
 }
